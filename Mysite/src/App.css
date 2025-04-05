@@ -1,0 +1,159 @@
+/* Base Responsive Styles */
+:root {
+  --primary-color: #4e44ce;
+  --secondary-color: #35a7ff;
+  --accent-color: #00d4ff;
+  --dark-color: #2c3e50;
+  --light-color: #f8f9fa;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: #abc0e0;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-width: 100vw
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width:100vw;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive Typography */
+h1 {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+}
+
+p, li, a, input, button {
+  font-size: clamp(0.9rem, 3vw, 1rem);
+}
+
+/* Responsive Layout Utilities */
+.flex-column-mobile {
+  display: flex;
+}
+
+.grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+/* Responsive Buttons */
+button, .btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  width: auto;
+  min-width: max-content;
+}
+
+/* Responsive Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive Form Elements */
+input, select, textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-size: inherit;
+}
+
+/* Responsive Containers */
+.container {
+  width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1200px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  html {
+    font-size: 14px;
+  }
+
+  .flex-column-mobile {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 13px;
+  }
+
+  .main-content {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* Responsive Footer */
+.footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: var(--dark-color);
+  color: white;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.footer p {
+  margin-bottom: 0.5rem;
+  font-size: clamp(0.8rem, 3vw, 1rem);
+}
+
+
