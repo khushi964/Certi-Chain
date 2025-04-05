@@ -1,0 +1,37 @@
+/* Make student page padding more fluid */
+@media (max-width: 768px) {
+  .student-page {
+    padding: 0.5rem;
+  }
+
+  .student-page h1 {
+    font-size: 1.8rem;
+  }
+
+  .connect-btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+
+  .wallet-connect p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .wallet-connect {
+    margin: 2rem 1rem;
+    padding: 1rem;
+  }
+
+  .connect-btn {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
+}
+
