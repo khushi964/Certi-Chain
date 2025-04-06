@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './CertificateForm.css';
-import { getContract, uploadToIPFS } from '../utils/blockchain';
+import { getContract } from '../utils/blockchain';
+import { uploadToIPFS } from '../utils/blockchain';
+import { ethers, HDNodeWallet } from 'ethers';
+import contractABI from "../contracts/EducationCredential.json";
+import contractAddress from "../contracts/EducationCredential-address.json";
 
-const CertificateForm = () => {
+const CertificateForm = ({walletAddress}) => {
   const [formData, setFormData] = useState({
     studentName: '',
     institution: '',
@@ -11,6 +15,11 @@ const CertificateForm = () => {
     year: '',
     certificateFile: null
   });
+
+  const [provider, setProvider] = useState(null);
+  const [signer, setSigner] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [account, setAccount] = useState(null);
 
   const [isMinting, setIsMinting] = useState(false);
 
@@ -34,24 +43,36 @@ const CertificateForm = () => {
     setIsMinting(true);
     try {
       // Step 1: Upload certificate file to IPFS
+      console.log("Uploading file to IPFS...");
+      console.log(formData.certificateFile);
       const fileCID = await uploadToIPFS(formData.certificateFile);
+      console.log("File uploaded to IPFS with CID:", fileCID);
+     
       const metadata = {
         name: `${formData.studentName} - ${formData.course}`,
         description: `Certificate issued by ${formData.institution} in ${formData.year} with grade ${formData.grade}`,
-        image: `https://ipfs.io/ipfs/${fileCID}`
+        image: `https://ipfs.io/ipfs/${fileCID}`,
       };
-
-      // Step 2: Upload metadata to IPFS
+      
+      // Step 2: Convert metadata to Blob and upload to IPFS
       const metadataBlob = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
-      const metadataCID = await uploadToIPFS(metadataBlob);
+      const metadataCID = await uploadToIPFS(metadataBlob); // This function should handle the actual IPFS upload
+      
+      console.log("Metadata CID:", metadataCID);
 
       // Step 3: Mint NFT using the metadata URI
-      const contract = await getContract();
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      await contract.mintCertificate(accounts[0], `https://ipfs.io/ipfs/${metadataCID}`);
-
+      
+      const tx = await contract.mintCertificate(walletAddress, `ipfs://${metadataCID}`);
+      console.log("Transaction sent:", tx.hash);
+  
+      const receipt = await tx.wait();
+      console.log("Transaction confirmed in block:", receipt.blockNumber);
+  
+      // Assuming the return value (tokenId) is in the logs or returned directly
+      console.log("Minting complete!");
+      
       alert("Certificate issued successfully!");
-
+      
       // Clear the form
       setFormData({
         studentName: '',
@@ -68,6 +89,34 @@ const CertificateForm = () => {
       setIsMinting(false);
     }
   };
+  
+  const initializeEthers = async () => {
+    if (!window.ethereum) {
+      alert("MetaMask not detected!");
+      return;
+    }
+    
+    try {
+      const _provider = new ethers.BrowserProvider(window.ethereum);
+      const _signer = await _provider.getSigner();
+      const _contract = new ethers.Contract(contractAddress.address, contractABI, _signer);
+
+      setProvider(_provider);
+      setSigner(_signer);
+      setContract(_contract);
+
+      const accounts = await _provider.send("eth_requestAccounts", []);
+      setAccount(accounts[0]);
+    } catch (error) {
+      console.error("Error initializing ethers:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (window.ethereum) {
+      initializeEthers();
+    }
+  }, []);
 
   return (
     <div className="certificate-form">
@@ -136,7 +185,6 @@ const CertificateForm = () => {
           <label>Certificate File (PDF)</label>
           <input
             type="file"
-            accept=".pdf"
             onChange={handleFileChange}
             required
           />
