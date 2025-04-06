@@ -9,7 +9,7 @@
   .footer-content h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    color: #00bcd4;
+    color: #d6d8e9;
   }
   
   .footer-content p {
@@ -23,7 +23,7 @@
   }
   
   .social-icons a {
-    color: #00bcd4;
+    color: #ebeff0;
     margin: 0 10px;
     font-size: 1.2rem;
     transition: color 0.3s ease;
