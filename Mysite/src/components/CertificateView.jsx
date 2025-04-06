@@ -1,79 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import './CertificateView.css';
+import React, { useEffect, useState } from "react";
+import CertificateViewer from "./CertificateViewer";
+import { getContract } from "../utils/blockchain";
 
 const CertificateView = ({ walletAddress }) => {
-  const [certificates, setCertificates] = useState([]);
+  const [tokenIds, setTokenIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCertificates = async () => {
-      // Simulate fetching from blockchain
-      setTimeout(() => {
-        setCertificates([
-          {
-            id: '0x123...abc',
-            name: 'Bachelor of Technology',
-            institution: 'Rural Technology Institute',
-            issueDate: '2023-05-15',
-            ipfsLink: 'https://ipfs.io/ipfs/QmXyZ...',
-            verified: true
-          },
-          {
-            id: '0x456...def',
-            name: 'High School Diploma',
-            institution: 'Village Public School',
-            issueDate: '2019-04-20',
-            ipfsLink: 'https://ipfs.io/ipfs/QmAbC...',
-            verified: true
-          }
-        ]);
+    const fetchTokens = async () => {
+      try {
+        const contract = await getContract();
+        const balance = await contract.balanceOf(walletAddress);
+
+        const ids = [];
+        for (let i = 0; i < balance; i++) {
+          const tokenId = await contract.tokenOfOwnerByIndex(walletAddress, i);
+          ids.push(tokenId.toString());
+        }
+
+        setTokenIds(ids);
+      } catch (err) {
+        console.error("Error fetching token IDs:", err);
+      } finally {
         setLoading(false);
-      }, 1000);
+      }
     };
 
     if (walletAddress) {
-      fetchCertificates();
+      fetchTokens();
     }
   }, [walletAddress]);
 
-  if (loading) {
-    return <div className="loading">Loading your certificates...</div>;
-  }
+  if (loading) return <p>Loading your certificates...</p>;
 
   return (
-    <div className="certificate-view">
+    <div>
       <h2>Your Certificates</h2>
-      {certificates.length === 0 ? (
-        <p>No certificates found for your wallet address.</p>
+      {tokenIds.length > 0 ? (
+        tokenIds.map((id) => <CertificateViewer key={id} tokenId={id} />)
       ) : (
-        <div className="certificate-grid">
-          {certificates.map((cert, index) => (
-            <div key={index} className="certificate-card">
-              <div className="certificate-header">
-                <h3>{cert.name}</h3>
-                <span className={`status ${cert.verified ? 'verified' : 'unverified'}`}>
-                  {cert.verified ? 'Verified' : 'Unverified'}
-                </span>
-              </div>
-              <div className="certificate-body">
-                <p><strong>Institution:</strong> {cert.institution}</p>
-                <p><strong>Issued On:</strong> {cert.issueDate}</p>
-                <p><strong>Certificate ID:</strong> <small>{cert.id}</small></p>
-              </div>
-              <div className="certificate-actions">
-                <a 
-                  href={cert.ipfsLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="view-btn"
-                >
-                  View Certificate
-                </a>
-                <button className="share-btn">Share</button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <p>No certificates found for your wallet address.</p>
       )}
     </div>
   );

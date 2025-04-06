@@ -3,24 +3,27 @@ import CertificateForm from '../components/CertificateForm';
 import './AdminPage.css';
 
 const AdminPage = () => {
-  const [isConnected, setIsConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState(null);
 
   const connectWallet = async () => {
-    // Wallet connection logic here
-    setIsConnected(true);
-  };
-
-  const issueCertificate = async (certData) => {
-    // Certificate issuance logic here
-    console.log('Issuing certificate:', certData);
-    alert('Certificate issued successfully!');
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setWalletAddress(accounts[0]);
+      } catch (err) {
+        console.error("Wallet connection failed:", err);
+        alert("Wallet connection failed. Please try again.");
+      }
+    } else {
+      alert("Please install MetaMask to use this feature.");
+    }
   };
 
   return (
     <div className="admin-page">
       <h1>Admin Portal</h1>
-      
-      {!isConnected ? (
+
+      {!walletAddress ? (
         <div className="wallet-connect">
           <p>Connect your wallet to issue certificates</p>
           <button onClick={connectWallet} className="connect-btn">
@@ -30,10 +33,10 @@ const AdminPage = () => {
       ) : (
         <>
           <div className="wallet-connected">
-            <p>Wallet Connected: 0x123...abc</p>
+            <p>Wallet Connected: {walletAddress}</p>
             <p>Institution: Rural Technology Institute (Admin)</p>
           </div>
-          <CertificateForm issueCertificate={issueCertificate} />
+          <CertificateForm walletAddress={walletAddress} />
         </>
       )}
     </div>
