@@ -24,15 +24,18 @@
 
 ---
 
-## 🌐 Live Demo
 
-(You can add link here after deployment)
-
----
 
 ## 🖼️ Screenshots
 
-(Add screenshots of your UI here for better presentation)
+<img width="1440" alt="Screenshot 2025-04-06 at 5 46 19 PM" src="https://github.com/user-attachments/assets/4be9b44e-d4ac-4f13-8641-f973a557ee3f" />
+
+<img width="1440" alt="Screenshot 2025-04-06 at 5 46 34 PM" src="https://github.com/user-attachments/assets/98a9a9e5-d894-4a6f-8eb6-d522568b4216" />
+
+<img width="1440" alt="Screenshot 2025-04-06 at 5 46 56 PM" src="https://github.com/user-attachments/assets/8e4f5a23-0710-4e65-9b53-cbe72e63c094" />
+
+
+
 
 ---
 
