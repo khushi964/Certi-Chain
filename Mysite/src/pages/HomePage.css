@@ -2,217 +2,175 @@
 
 :root {
   --primary-color: #4a90e2;
-  --secondary-color: #f5f7fa;
-  --text-color: #333;
-  --card-bg: #fff;
-  --border-radius: 12px;
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --gradient: linear-gradient(135deg, #6a11cb, #2575fc);
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --step-bg: #ffffff;
+  --text-color: #1e293b;
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --border-radius: 16px;
+  --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.dark {
+  --step-bg: #1e2235;
+  --text-color: #f1f5f9;
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  background: #0f172a;
 }
 
 body {
   font-family: 'Inter', sans-serif;
+  background: #f0f4f8;
   margin: 0;
-  padding: 0;
-  background-color: var(--secondary-color);
   color: var(--text-color);
 }
 
+.dark body {
+  background: #0f172a;
+}
+
 .home-page {
+  padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9fafb;
 }
 
 /* Hero Section */
-.hero-section {
-  text-align: center;
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, var(--primary-color), #6a11cb);
+.hero-section-modern {
+  background: var(--gradient);
   color: white;
+  text-align: center;
+  padding: 5rem 2rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero-section h1 {
+.hero-section-modern h1 {
+  font-size: 3rem;
   margin: 0;
-  font-size: 2.5rem;
-  color: #fff;
 }
 
-.hero-section p {
+.hero-section-modern h1 span {
+  background: white;
+  color: var(--primary-color);
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+}
+
+.hero-section-modern p {
+  margin-top: 1rem;
   font-size: 1.2rem;
-  margin-top: 0.5rem;
-  color: #f0f0f0;
+  color: #e0e0e0;
 }
 
 /* Features Section */
-.features-section {
+.features-modern h2 {
   text-align: center;
-  margin: 4rem 0;
-}
-
-.features-section h2 {
   font-size: 2rem;
-  color: #4f46e5;
   margin-bottom: 2rem;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  justify-content: center;
-}
-
-.feature-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-  text-align: center;
-}
-
-.feature-card:hover {
-  transform: translateY(-6px);
-}
-
-.feature-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
   color: var(--primary-color);
 }
 
-.feature-card h3 {
-  color: #111827;
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+.features-grid-modern {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
 }
 
-.feature-card p {
-  font-size: 0.9rem;
-  color: #6b7280;
-}
-
-/* How It Works Section */
-.how-it-works {
+.feature-modern {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius);
+  padding: 2rem;
   text-align: center;
-  margin-bottom: 3rem;
-}
-
-.how-it-works h2 {
-  font-size: 2rem;
-  color: #4f46e5;
-  margin-bottom: 2rem;
-}
-
-.steps {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.step {
-  display: flex;
-  align-items: center;
-  background: white;
-  padding: 1rem 1.5rem;
-  width: 80%;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--box-shadow);
   transition: transform 0.3s ease;
 }
 
-.step:hover {
-  transform: translateY(-5px);
+.feature-icon-modern {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-.step-number {
+/* How It Works */
+.how-it-works-modern {
+  margin-top: 5rem;
+  text-align: center;
+  /* background: rgba(255, 255, 255, 0.05);  */
+  /* more subtle for both themes */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3rem 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: all 0.3s ease-in-out;
+ 
+}
+
+
+
+.how-it-works-modern h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+}
+
+.steps-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.step-modern {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.12);
+  /* color: var(--step-bg); */
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 80%;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.step-modern p {
+  color: var(--step-bg);
+}
+
+.step-number-modern {
+  background: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
-  background: #4f46e5;
-  color: white;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  font-weight: bold;
   margin-right: 1rem;
 }
 
+
 /* Responsive */
 @media (max-width: 768px) {
-  .hero-section {
-    padding: 3rem 1.5rem;
-  }
-
-  .hero-section h1 {
+  .hero-section-modern h1 {
     font-size: 2rem;
   }
 
-  .hero-section p {
-    font-size: 1rem;
+  .step-modern {
+    flex-direction: row;
+    width: 90%;
+    padding: 1rem 1.5rem;
   }
 
-  .features-grid {
-    grid-template-columns: 1fr;
+  .step-number-modern {
+    margin-bottom: 0;
   }
-
-  .step {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .step-number {
-    margin-bottom: 0.5rem;
-  }
-}
-
-/* Dark Mode */
-body.dark-mode {
-  background-color: #1e1e2f;
-  color: #f5f5f5;
-}
-
-body.dark-mode .home-page {
-  background-color: #2a2a40;
-}
-
-body.dark-mode .hero-section {
-  background: linear-gradient(135deg, #3b82f6, #6366f1);
-  color: #ffffff;
-}
-
-body.dark-mode .features-section h2,
-body.dark-mode .how-it-works h2 {
-  color: #c7d2fe;
-}
-
-body.dark-mode .feature-card {
-  background: #373753;
-  color: #f0f0f0;
-}
-
-body.dark-mode .feature-card h3 {
-  color: #ffffff;
-}
-
-body.dark-mode .feature-card p {
-  color: #c2c2c2;
-}
-
-body.dark-mode .step {
-  background: #373753;
-  color: #f0f0f0;
-}
-
-body.dark-mode .step-number {
-  background-color: #6366f1;
-  color: #ffffff;
 }
