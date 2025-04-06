@@ -35,19 +35,11 @@ const Navbar = () => {
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
           <img src={NavImg} alt="Cert" className="logo-img" />
-          CertiChain
+          <span className="logo-text">CertiChain</span>
         </Link>
 
-        <div className="navbar-right">
-          {/* Dark Mode Toggle */}
-          <button className="dark-toggle" onClick={toggleDarkMode}>
-            {darkMode ? <BsSun /> : <BsMoon />}
-          </button>
-
-          {/* Hamburger Icon */}
-          <div className="hamburger" onClick={toggleMenu}>
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </div>
+        <div className="hamburger" onClick={toggleMenu}>
+          {menuOpen ? <FaTimes /> : <FaBars />}
         </div>
 
         <ul className={`nav-menu ${menuOpen ? 'active' : ''}`}>
@@ -67,9 +59,9 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/auth" className="nav-links" onClick={closeMenu}>
-              Login / Signup
-            </Link>
+            <button className="nav-links dark-toggle" onClick={toggleDarkMode}>
+              {darkMode ? <BsSun /> : <BsMoon />}
+            </button>
           </li>
         </ul>
       </div>
@@ -78,5 +70,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
